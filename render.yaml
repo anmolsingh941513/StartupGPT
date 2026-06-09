@@ -1,0 +1,32 @@
+services:
+  # ── Backend API ──────────────────────────────────────────────────────────────
+  - type: web
+    name: startupgpt-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false   # Set in Render dashboard
+      - key: GEMINI_API_KEY
+        sync: false   # Set in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false   # Set to your frontend URL after deploy
+
+  # ── Frontend ─────────────────────────────────────────────────────────────────
+  - type: web
+    name: startupgpt-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false   # Set to your backend URL after deploy
