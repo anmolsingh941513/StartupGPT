@@ -6,14 +6,11 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Proxy API calls to Express backend during local development
+      // Proxy API calls to Node.js/Express backend during development
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
       },
     },
-  },
-  build: {
-    outDir: 'dist',
   },
 })
